@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import { useState } from "react"
+import { toast } from "react-toastify"
 
 const Form = ({ addItem }) => {
   const [newItemName, setNewItemName] = useState("")
@@ -6,6 +7,7 @@ const Form = ({ addItem }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!newItemName) {
+      toast.error("please provide value")
       return
     }
     addItem(newItemName)
@@ -13,22 +15,20 @@ const Form = ({ addItem }) => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h4>To do list</h4>
+    <form onSubmit={handleSubmit}>
+      <h4>todo list</h4>
+      <div className="form-control">
         <input
-          type="text"
+          type="text "
           className="form-input"
-          name="item"
           value={newItemName}
-          onChange={(e) => setNewItemName(e.target.value)}
+          onChange={(event) => setNewItemName(event.target.value)}
         />
-        <button type="submit" className="btn" onClick={addItem}>
-          Add item
+        <button type="submit" className="btn">
+          add item
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }
-
 export default Form
